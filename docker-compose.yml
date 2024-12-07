@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  react-app:
+    build:
+      context: . # Ścieżka do katalogu z Dockerfile
+      dockerfile: Dockerfile
+      args:
+        IMAGE_NAME: node:18-alpine # Przekazanie ARG IMAGE_NAME
+    ports:
+      - ${VITE_PORT}:${VITE_PORT} 
+    volumes:
+      - .:/app # Montowanie projektu (opcjonalne do dev)
+      - /app/node_modules # Ignorowanie node_modules w synchronizacji
+    environment:
+      - NODE_ENV=production
+      - VITE_PORT=${VITE_PORT}
+    restart: unless-stopped
