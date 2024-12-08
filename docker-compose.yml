@@ -9,9 +9,6 @@ services:
         IMAGE_NAME: node:18-alpine # Przekazanie ARG IMAGE_NAME
     ports:
       - ${VITE_PORT}:${VITE_PORT} 
-    volumes:
-      - .:/app # Montowanie projektu (opcjonalne do dev)
-      - /app/node_modules # Ignorowanie node_modules w synchronizacji
     environment:
       - NODE_ENV=production
       - VITE_PORT=${VITE_PORT}
