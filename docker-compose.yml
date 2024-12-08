@@ -6,9 +6,9 @@ services:
       context: . # Ścieżka do katalogu z Dockerfile
       dockerfile: Dockerfile
       args:
-        IMAGE_NAME: node:18-alpine # Przekazanie ARG IMAGE_NAME
+        IMAGE_NAME: ${FRONTEND_IMAGE} # Przekazanie ARG IMAGE_NAME
     ports:
-      - ${VITE_PORT}:${VITE_PORT} 
+      - ${VITE_PORT}:${VITE_PORT}
     environment:
       - NODE_ENV=production
       - VITE_PORT=${VITE_PORT}
