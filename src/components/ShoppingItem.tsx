@@ -47,7 +47,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({
       {isEditMode ? (
         <IconButton
           onClick={disableEditMode}
-          className="inline-flex items-center w-[26px] h-[26px] ms-1 p-1 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          className="inline-flex items-center w-[26px] h-[26px] ms-1 p-1 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
           title="title"
         >
           <IconCheckSquare />
@@ -60,10 +60,10 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({
 
       {isDropdownOpen && (
         <div
-          className="absolute z-10 right-0 mt-2 bg-white rounded-lg shadow divide-y divide-gray-100 dark:bg-gray-700 dark:divide-gray-600"
+          className="absolute z-10 right-0 mt-2 bg-white rounded-lg shadow divide-y divide-gray-100"
           onClick={(e) => e.stopPropagation()}
         >
-          <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+          <ul className="py-2 text-sm text-gray-700">
             {onEdit && (
               <li>
                 <a
@@ -73,7 +73,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({
                     onEdit(id);
                     setIsDropdownOpen(false);
                   }}
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  className="block px-4 py-2 hover:bg-gray-100"
                 >
                   Edit
                 </a>
@@ -87,7 +87,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({
                   onDelete(id);
                   setIsDropdownOpen(false);
                 }}
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block px-4 py-2 hover:bg-gray-100"
               >
                 Delete
               </a>

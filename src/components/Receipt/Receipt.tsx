@@ -60,7 +60,7 @@ const Receipt: React.FC<ReceiptProps> = ({
 
       {/* Token Section */}
       <div className="text-center relative">
-        <p className="w-11px-1 uppercase text-sm font-semibold absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white">
+        <p className="w-32 px-1 uppercase text-sm font-semibold absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white">
           Receipt Number
         </p>
 

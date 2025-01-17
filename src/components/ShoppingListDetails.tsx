@@ -5,6 +5,7 @@ import { ShoppingListEntity } from '../models/ShoppingListEntity';
 import ShoppingItem from './ShoppingItem';
 import AddProductForm from './AddProductForm';
 import AddUserIcon from './AddUserIcon';
+import { UpdateShoppingListItemDTO } from '../contracts/UpdateShoppingListItemDTO';
 
 const ShoppingListDetails: React.FC = () => {
   const { listId } = useParams<{ listId: string }>();
@@ -93,18 +94,30 @@ const ShoppingListDetails: React.FC = () => {
       (shoppingItem) => shoppingItem.id === editedItemId,
     );
 
-    if (!shoppingItem || !editedItemId) {
+    if (!shoppingItem || !editedItemId || !shoppingList) {
       return;
     }
 
-    await api.updateShoppingItem(editedItemId, {
+    //
+    await handleUpdateShoppingList({
+      shoppingListId: shoppingList.id,
+      shoppingListItemId: editedItemId,
       name: newItemName,
       quantity: newItemQuantity,
       purchased: shoppingItem.purchased,
     });
 
     clearAddNewItemFields();
-    fetchListDetails();
+  };
+
+  const handleUpdateShoppingList = async (
+    updateShoppingListDTO: UpdateShoppingListItemDTO,
+  ) => {
+    const updatedShoppingList = await api.updateShoppingItem(
+      updateShoppingListDTO,
+    );
+
+    setShoppingList(updatedShoppingList);
   };
 
   const disableEditMode = () => {
@@ -112,22 +125,21 @@ const ShoppingListDetails: React.FC = () => {
   };
 
   const handleTogglePurchased = async (itemId: string, purchased: boolean) => {
-    console.log(purchased);
     const shoppingItem = shoppingList?.shoppingItems.find(
       (shoppingItem) => shoppingItem.id === itemId,
     );
 
-    if (!shoppingItem) {
+    if (!shoppingItem || !shoppingList) {
       return;
     }
 
-    await api.updateShoppingItem(itemId, {
+    await handleUpdateShoppingList({
+      shoppingListId: shoppingList.id,
+      shoppingListItemId: itemId,
       name: shoppingItem.name,
       quantity: shoppingItem.quantity,
       purchased: !shoppingItem.purchased,
     });
-
-    await fetchListDetails();
   };
 
   if (loading) {
@@ -135,12 +147,9 @@ const ShoppingListDetails: React.FC = () => {
   }
 
   const navigateToShoppingListManageUser = () => {
-    console.log(shoppingList?.id);
-
     if (!shoppingList) {
       return;
     }
-    console.log(`/list/${shoppingList.id}/manage-user`);
 
     navigate(`/list/${shoppingList.id}/manage-user`);
   };

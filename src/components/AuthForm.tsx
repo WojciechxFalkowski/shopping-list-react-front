@@ -17,7 +17,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onLogin }) => {
       await api.register({ username, password, email });
     } else {
       const token = await api.login({ username, password });
-
+      
       onLogin(token);
     }
   };

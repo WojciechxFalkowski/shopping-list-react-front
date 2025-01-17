@@ -69,10 +69,10 @@ const ShoppingListItem: React.FC<ShoppingListItemProps> = ({
 
       {isDropdownOpen && (
         <div
-          className="absolute z-10 right-0 mt-2 bg-white rounded-lg shadow divide-y divide-gray-100 dark:bg-gray-700 dark:divide-gray-600"
+          className="absolute z-10 right-0 mt-2 bg-white rounded-lg shadow divide-y divide-gray-100"
           onClick={(e) => e.stopPropagation()} // Zablokuj propagację kliknięcia dla dropdownu
         >
-          <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+          <ul className="py-2 text-sm text-gray-700">
             <li>
               <a
                 href="#"
@@ -81,7 +81,7 @@ const ShoppingListItem: React.FC<ShoppingListItemProps> = ({
                   handleDeleteList(shoppingList.id);
                   setIsDropdownOpen(false);
                 }}
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block px-4 py-2 hover:bg-gray-100"
               >
                 Delete
               </a>
