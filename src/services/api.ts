@@ -1,3 +1,5 @@
+import { AddReceiptDTO } from "../contracts/AddReceiptDTO";
+import { UpdateShoppingListItemDTO } from "../contracts/UpdateShoppingListItemDTO";
 import { ReceiptEntity } from "../models/ReceiptEntity";
 import { ShoppingItemListEntity, ShoppingListEntity } from "../models/ShoppingListEntity";
 import { UserEntity } from "../models/UserEntity";
@@ -55,11 +57,8 @@ const api = {
       body: JSON.stringify(list),
     }),
 
-  getSharedShoppingLists: async () =>
-    await apiRequest<ShoppingListEntity[]>('/shopping-lists/shared'),
-
   getShoppingLists: async () =>
-    apiRequest<ShoppingListEntity[]>('/shopping-lists/me'),
+    apiRequest<ShoppingListEntity[]>('/shopping-lists/my-shopping-lists'),
 
   removeShoppingList: async (shoppingListId: string) =>
     await apiRequest<Promise<ShoppingListEntity[]>>('/shopping-lists', {
@@ -108,15 +107,10 @@ const api = {
       method: 'DELETE',
     }),
 
-  updateShoppingItem: async (itemId: string, item: {
-    name: string;
-    quantity: number;
-    purchased: boolean
-  }
-  ) =>
-    await apiRequest<void>(`/shopping-lists/update-shopping-item/${itemId}`, {
+  updateShoppingItem: async (updateShoppingListDTO: UpdateShoppingListItemDTO) =>
+    await apiRequest<ShoppingListEntity>(`/shopping-lists/update-shopping-item`, {
       method: 'PUT',
-      body: JSON.stringify(item),
+      body: JSON.stringify(updateShoppingListDTO),
     }),
 
   generateShoppingListByUrl: async (url: string) =>
@@ -157,6 +151,20 @@ const api = {
 
   getReceipts: async () =>
     await apiRequest<ReceiptEntity[]>(`/receipts`, {
+      method: 'GET',
+    }),
+
+  addReceipt: async (addReceiptDTO: AddReceiptDTO) =>
+    await apiRequest<ReceiptEntity[]>('/receipts', {
+      method: 'POST',
+      body: JSON.stringify(addReceiptDTO),
+    }),
+  getUser: async () =>
+    await apiRequest<{
+      username: string;
+      email: string;
+      id: string;
+    }>(`/users/me`, {
       method: 'GET',
     }),
 };

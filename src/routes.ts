@@ -10,11 +10,15 @@ const ROUTES = {
 		// },
 		GENERATE_LIST_BY_TEXT: {
 			path: '/generate-list-by-text',
-			label: 'Wygeneruj liste na podstawie tekstu',
+			label: 'Wygeneruj listę',
 		},
 		GET_RECEIPTS: {
 			path: '/get-receipts',
 			label: 'Paragony',
+		},
+		ADD_RECEIPTS: {
+			path: '/add-receipts',
+			label: 'Dodaj Paragon',
 		},
 	},
 	WITH_PARAMS: {

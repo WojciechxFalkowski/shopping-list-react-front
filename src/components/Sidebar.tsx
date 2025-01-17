@@ -1,6 +1,9 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import ROUTES from '../routes';
+import { IconAddReceipt, IconChecklist, IconLogout, IconMagicWand, IconReceipt } from './Icons';
+
+import SidebarTest from './SidebarTest';
+import MenuItem from './MenuItem';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -30,58 +33,63 @@ const Sidebar: React.FC<SidebarProps> = ({
     path: route.path,
   }));
 
-  const sidebarItems = [
-    ...staticRoutes,
+  const sidebarMenuElemenets = [
+    {
+      label: 'Listy zakupów',
+      path: '/',
+      icon: <IconChecklist />,
+    },
+    {
+      label: 'Wygeneruj listę',
+      path: '/generate-list-by-text',
+      icon: <IconMagicWand />,
+    },
+    {
+      label: 'Paragony',
+      path: '/get-receipts',
+      icon: <IconReceipt />,
+    },
+    {
+      label: 'Dodaj Paragon',
+      path: '/add-receipts',
+      icon: <IconAddReceipt />,
+    },
     {
       label: 'Logout',
       path: null,
       onClick: handleLogout,
+      icon: <IconLogout />,
     },
   ];
-
+  // lg:w-64  w-full
   return (
     <div
-      className={`fixed top-0 left-0 min-h-full bg-white w-full lg:w-64 lg:min-h-[100vh] lg:static transform z-20 lg:translate-x-0 ${
+      className={`fixed top-0 w-full lg:w-auto left-0 min-h-full bg-white lg:min-h-[100vh] lg:static transform z-20 lg:translate-x-0 ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       } transition-transform duration-300 ease-in-out shadow-lg ${className}`}
     >
-      {/* Close Button */}
-      {/* {onClose && (
-        <button
-          className="absolute top-4 right-4 text-gray-400 hover:text-white focus:outline-none lg:hidden"
-          onClick={onClose}
-        >
-          ✕
-        </button>
-      )} */}
-
-      {/* Sidebar Items */}
-      <ul className="mt-16 space-y-4 px-4">
-        {sidebarItems.map((item, index) => (
-          <li key={index}>
-            {item.path ? (
-              <NavLink
-                to={item.path}
-                className={({ isActive }) =>
-                  `flex items-center gap-4 p-2 rounded cursor-pointer hover:bg-gray-200 ${
-                    isActive ? 'bg-gray-200' : ''
-                  }`
+      <SidebarTest>
+        {sidebarMenuElemenets.map((sidebarElement, index) => {
+          return (
+            <MenuItem
+              asLink={Boolean(sidebarElement.path)}
+              path={sidebarElement.path}
+              icon={sidebarElement.icon}
+              text={sidebarElement.label}
+              alert={false}
+              handleClick={() => {
+                if (onClose) {
+                  onClose();
                 }
-                onClick={onClose} // Opcjonalne zamykanie sidebaru
-              >
-                {item.label}
-              </NavLink>
-            ) : (
-              <button
-                onClick={item.onClick}
-                className="flex items-center gap-4 p-2 rounded cursor-pointer hover:bg-gray-200 w-full"
-              >
-                {item.label}
-              </button>
-            )}
-          </li>
-        ))}
-      </ul>
+                if (sidebarElement.onClick) {
+                  sidebarElement.onClick();
+                }
+              }}
+              key={index}
+            />
+          );
+        })}
+      </SidebarTest>
     </div>
   );
 };

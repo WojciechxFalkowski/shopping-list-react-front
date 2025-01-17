@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,6 +14,7 @@ import BurgerIcon from './components/BurgerIcon';
 import ShoppingListManageUser from './components/pages/ShoppingListManageUser';
 import GenerateListByText from './components/pages/GenerateListByText';
 import ReceiptsPage from './components/pages/ReceiptsPage';
+import AddReceiptPage from './components/pages/AddReceiptPage';
 
 const App: React.FC = () => {
   const [token, setToken] = useState<string | null>(
@@ -70,32 +71,31 @@ const App: React.FC = () => {
                     path={ROUTES.WITHOUT_PARAMS.HOME.path}
                     element={<ShoppingListContainer />}
                   />
-
                   <Route
                     path={ROUTES.WITH_PARAMS.SHOPPING_LIST_DETAILS().path}
                     element={<ShoppingListDetails />}
                   />
-
                   <Route
                     path={ROUTES.WITH_PARAMS.SHOPPING_LIST_MANAGE_USER().path}
                     element={<ShoppingListManageUser />}
                   />
-
                   {/* <Route
                     path={ROUTES.WITHOUT_PARAMS.GENERATE_LIST_BY_URL.path}
                     element={<GenerateListByUrl />}
                   /> */}
-
                   <Route
                     path={ROUTES.WITHOUT_PARAMS.GENERATE_LIST_BY_TEXT.path}
                     element={<GenerateListByText />}
                   />
-
                   <Route
                     path={ROUTES.WITHOUT_PARAMS.GET_RECEIPTS.path}
                     element={<ReceiptsPage />}
                   />
 
+                  <Route
+                    path={ROUTES.WITHOUT_PARAMS.ADD_RECEIPTS.path}
+                    element={<AddReceiptPage />}
+                  />
                   <Route
                     path="*"
                     element={

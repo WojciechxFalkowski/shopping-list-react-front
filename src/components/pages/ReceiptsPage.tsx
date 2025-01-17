@@ -5,6 +5,8 @@ import Text from '../Text';
 import Heading from '../Heading';
 import api from '../../services/api';
 import ReceiptsGrid from '../Receipt/ReceiptsGrid';
+import { NavLink } from 'react-router-dom';
+import ROUTES from '../../routes';
 
 const ReceiptsPage: React.FC = () => {
   const [receipts, setReceipts] = useState<ReceiptEntity[]>([]);
@@ -14,7 +16,6 @@ const ReceiptsPage: React.FC = () => {
   useEffect(() => {
     const fetchReceipts = async () => {
       try {
-        // Zastąp poniższy URL swoim endpointem API
         const response = await api.getReceipts();
         setReceipts(response);
       } catch (err) {
@@ -52,7 +53,16 @@ const ReceiptsPage: React.FC = () => {
       </Heading>
       {/* <ReceiptList receipts={receipts} /> */}
 
-      <ReceiptsGrid receipts={receipts} />
+      <NavLink
+        to={ROUTES.WITHOUT_PARAMS.ADD_RECEIPTS.path}
+        className="block text-center bg-green-500 text-white p-2 rounded w-full h-full"
+      >
+        Dodaj paragon
+      </NavLink>
+
+      <div className="mt-5">
+        <ReceiptsGrid receipts={receipts} />
+      </div>
     </div>
   );
 };
