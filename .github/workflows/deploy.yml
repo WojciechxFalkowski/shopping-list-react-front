@@ -10,9 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install cloudflared
-        run: | 
+        run: |
           wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb 
           sudo dpkg -i cloudflared-linux-amd64.deb
+          echo "Test"
 
       # Używamy akcję appleboy/ssh-action (popularna i dość prosta w konfiguracji).
       - name: Deploy changes to Raspberry Pi
@@ -26,6 +27,7 @@ jobs:
 
           # Skrypt, który wykona się na Raspberry Pi
           script: |
+            echo "Test v2"
             cd ${{ secrets.PI_PROJECT_PATH }}
             docker compose down
             git pull
