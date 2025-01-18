@@ -28,6 +28,6 @@ jobs:
         key: ${{ secrets.PI_SSH_KEY }}
         script: |
           cd ${{ secrets.PI_PROJECT_PATH }}
-          docker-compose down
+          docker compose down
           git pull
-          docker-compose up --build -d
+          docker compose up --build -d
