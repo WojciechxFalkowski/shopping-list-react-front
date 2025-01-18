@@ -19,6 +19,7 @@ jobs:
         host: 100.100.55.105
         username: wojtek
         key: ${{ secrets.PI_SSH_KEY }}
+        debug: true
         script: |
           echo "Connected successfully."
           cd ${{ secrets.PI_PROJECT_PATH }}
