@@ -14,13 +14,14 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Test ping to Raspberry Pi
-      run: ping -c 4 100.100.55.105
+      run: ping 100.100.55.105
 
     - name: Deploy to Raspberry Pi
-      uses: appleboy/ssh-action@v0.1.10
+      uses: appleboy/ssh-action@v1.2.0
       with:
         host: 100.100.55.105
         username: wojtek
+        port: 22
         key: ${{ secrets.PI_SSH_KEY }}
         debug: true
         script: |
