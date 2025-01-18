@@ -1,5 +1,4 @@
 import React from 'react';
-import ROUTES from '../routes';
 import { IconAddReceipt, IconChecklist, IconLogout, IconMagicWand, IconReceipt } from './Icons';
 
 import SidebarTest from './SidebarTest';
