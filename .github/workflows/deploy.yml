@@ -1,4 +1,4 @@
-name: Deploy to Raspberry Pi
+name: Deploy to Raspberry Pi using Tailscale
 
 on:
   push:
@@ -8,27 +8,19 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Install cloudflared
-        run: |
-          wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb 
-          sudo dpkg -i cloudflared-linux-amd64.deb
-          echo "Test"
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # Używamy akcję appleboy/ssh-action (popularna i dość prosta w konfiguracji).
-      - name: Deploy changes to Raspberry Pi
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.PI_HOST }}
-          username: ${{ secrets.PI_USER }}
-          key: ${{ secrets.PI_SSH_KEY }}
-          # port (opcjonalnie) – tylko jeśli Twój SSH jest pod innym portem
-          # port: ${{ secrets.PI_SSH_PORT }}
-
-          # Skrypt, który wykona się na Raspberry Pi
-          script: |
-            echo "Test v2"
-            cd ${{ secrets.PI_PROJECT_PATH }}
-            docker compose down
-            git pull
-            docker compose up -d --build
+    - name: Deploy to Raspberry Pi
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.PI_HOST }}
+        username: ${{ secrets.PI_USER }}
+        key: ${{ secrets.PI_SSH_PRIVATE_KEY }}
+        script: |
+          cd ${{ secrets.PI_PROJECT_DIR }}
+          docker-compose down
+          git pull
+          docker-compose up --build -d
