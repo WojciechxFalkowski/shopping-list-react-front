@@ -18,16 +18,50 @@ jobs:
         echo "Host: ${{ secrets.PI_HOST }}"
         echo "User: ${{ secrets.PI_USER }}"
         echo "Project Path: ${{ secrets.PI_PROJECT_PATH }}"
-        echo "PI_SSH_KEY: ${{ secrets.PI_SSH_KEY }}"
+        # Sekrety będą ukryte w logach, ale potwierdzasz, że są ustawione
 
-    - name: Deploy to Raspberry Pi
+    - name: Test connection to Raspberry Pi
       uses: appleboy/ssh-action@v0.1.10
       with:
         host: ${{ secrets.PI_HOST }}
         username: ${{ secrets.PI_USER }}
         key: ${{ secrets.PI_SSH_KEY }}
         script: |
-          cd ${{ secrets.PI_PROJECT_PATH }}
-          docker compose down
-          git pull
-          docker compose up --build -d
+          echo "Successfully connected to Raspberry Pi"
+
+    - name: Navigate to project directory
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.PI_HOST }}
+        username: ${{ secrets.PI_USER }}
+        key: ${{ secrets.PI_SSH_KEY }}
+        script: |
+          cd ${{ secrets.PI_PROJECT_PATH }} || echo "Failed to navigate to project directory"
+
+    - name: Check Docker installation
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.PI_HOST }}
+        username: ${{ secrets.PI_USER }}
+        key: ${{ secrets.PI_SSH_KEY }}
+        script: |
+          docker --version || echo "Docker not installed or not in PATH"
+
+    - name: Pull latest changes
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.PI_HOST }}
+        username: ${{ secrets.PI_USER }}
+        key: ${{ secrets.PI_SSH_KEY }}
+        script: |
+          git pull || echo "Failed to pull latest changes"
+
+    - name: Restart Docker Compose services
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.PI_HOST }}
+        username: ${{ secrets.PI_USER }}
+        key: ${{ secrets.PI_SSH_KEY }}
+        script: |
+          docker compose down || echo "Failed to stop running containers"
+          docker compose up --build -d || echo "Failed to start Docker containers"
