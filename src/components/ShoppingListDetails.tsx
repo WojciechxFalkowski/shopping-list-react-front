@@ -124,7 +124,7 @@ const ShoppingListDetails: React.FC = () => {
     clearAddNewItemFields();
   };
 
-  const handleTogglePurchased = async (itemId: string, purchased: boolean) => {
+  const handleTogglePurchased = async (itemId: string) => {
     const shoppingItem = shoppingList?.shoppingItems.find(
       (shoppingItem) => shoppingItem.id === itemId,
     );

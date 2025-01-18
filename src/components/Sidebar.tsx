@@ -24,14 +24,14 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   // Automatyczne generowanie ścieżek bez parametrów
-  const staticRoutes: {
-    label: string;
-    path: string;
-    onClick?: () => void;
-  }[] = Object.values(ROUTES.WITHOUT_PARAMS).map((route) => ({
-    label: route.label,
-    path: route.path,
-  }));
+  // const staticRoutes: {
+  //   label: string;
+  //   path: string;
+  //   onClick?: () => void;
+  // }[] = Object.values(ROUTES.WITHOUT_PARAMS).map((route) => ({
+  //   label: route.label,
+  //   path: route.path,
+  // }));
 
   const sidebarMenuElemenets = [
     {
