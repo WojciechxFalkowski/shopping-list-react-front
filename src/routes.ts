@@ -18,7 +18,7 @@ const ROUTES = {
 		},
 		ADD_RECEIPTS: {
 			path: '/add-receipts',
-			label: 'Dodaj Paragonn',
+			label: '',
 		},
 	},
 	WITH_PARAMS: {
