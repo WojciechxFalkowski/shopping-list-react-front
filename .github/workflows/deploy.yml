@@ -1,0 +1,20 @@
+name: Deploy to Raspberry Pi
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    # Kluczowe: używamy self-hosted runnera
+    runs-on: self-hosted
+
+    steps:
+      # Krok 1: Pobranie (checkout) kodu z repozytorium
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      # Krok 2: Zatrzymanie kontenerów, update kodu i ponowne uruchomienie
+      - name: Deploy with Docker
+        run: |
+          ls
