@@ -6,18 +6,15 @@ on:
 
 jobs:
   deploy:
-    # Kluczowe: używamy self-hosted runnera
     runs-on: self-hosted
-
     steps:
-      # Krok 1: Pobranie (checkout) kodu z repozytorium
       - name: Check out code
         uses: actions/checkout@v3
 
-      # Krok 2: Zatrzymanie kontenerów, update kodu i ponowne uruchomienie
-      - name: Deploy with Docker
+      - name: Docker Deploy
         run: |
+          # cd directory
+          cd $GITHUB_WORKSPACE
           docker compose down
-          git pull
           docker compose pull
           docker compose up -d --build
