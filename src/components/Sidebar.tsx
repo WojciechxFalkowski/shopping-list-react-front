@@ -49,7 +49,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       icon: <IconReceipt />,
     },
     {
-      label: 'Dodaj Paragon',
+      label: 'Dodaj Paragonn',
       path: '/add-receipts',
       icon: <IconAddReceipt />,
     },

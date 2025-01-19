@@ -17,4 +17,7 @@ jobs:
       # Krok 2: Zatrzymanie kontenerów, update kodu i ponowne uruchomienie
       - name: Deploy with Docker
         run: |
-          ls
+          docker compose down
+          git pull
+          docker compose pull
+          docker compose up -d --build
