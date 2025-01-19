@@ -2,29 +2,23 @@ name: Deploy to Raspberry Pi
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: self-hosted
+
     steps:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: CHECK 1
-        run: pwd
-
-      - name: CHECK 2
-        run: ls -lsa
-
-      - name: Docker Compose Down
-        run: docker compose down
-
-      - name: Git Pull
-        run: git pull
-
-      - name: Docker Compose Pull
-        run: docker compose pull
-
-      - name: Docker Compose Up
-        run: docker compose up -d --build
+      - name: Docker Compose
+        env:
+          FRONTEND_IMAGE: ${{ vars.FRONTEND_IMAGE }}
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_PORT: ${{ vars.VITE_PORT }}
+        run: |
+          docker compose down
+          docker compose pull
+          docker compose up -d --build
