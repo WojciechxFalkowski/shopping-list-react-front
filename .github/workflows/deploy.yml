@@ -11,6 +11,12 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
+      - name: CHECK 1
+        run: pwd
+
+      - name: CHECK 2
+        run: ls -lsa
+
       - name: Docker Compose Down
         run: docker compose down
 
